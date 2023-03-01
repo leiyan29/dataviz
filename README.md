@@ -1,6 +1,6 @@
 # dataviz
 
-# Using D3.js to create data visualization demos
+Using D3.js to create data visualization demos
 Demo1. world map
 =======
 Using D3.js to create data visualization demos
