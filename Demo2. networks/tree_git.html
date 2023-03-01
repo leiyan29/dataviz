@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Data visualization
+        </title>
+        <script src ="/static/js/d3.v5.min.js"></script>
+        <script src="https://unpkg.com/textures@1.2.0/dist/textures.js"></script>
+    </head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+    <body>
+        <!-- <h1 style="text-align:left">Mapping relationships with sunburst</h1> -->
+        <h1 style="text-align:left">Mapping interactive networks</h1>
+        <svg width ='1600' height ='940' id="mainsvg" class="svgs"></svg>
+        <script>
+            // const svg = d3.select('#mainsvg')
+            // const width = +svg.attr('width')
+            // const height = +svg.attr('height')
+            // const margin = {top:50, right:150, bottom:50, left:60}
+            // const innerWidth = width - margin.left - margin.right
+            // const innerHeight = height - margin.top - margin.bottom
+            // const g = svg.append('g')
+            //     .attr('id', 'maingroup')
+            //     .attr('transform', `translate(${margin.left}, ${margin.top})`)
+            // let root;
+
+            ////// tree map
+            // let color;
+            // const fill_color = d => {
+            //     if (d.depth === 0){
+            //         return color(d.data.name)
+            //     }
+            //     while (d.depth > 1){
+            //         d = d.parent
+            //     }
+            //     return color(d.data.name)
+            // }
+
+            // const render = function(root){
+            //     color = d3.scaleOrdinal()
+            //     .domain(root.descendants().filter( d => d.depth <= 1 ).map( d => d.data.name ))
+            //     .range(d3.schemeCategory10);
+
+            //     g.selectAll('path')
+            //     .data(root.links())
+            //     .join('path')
+            //     // root.links() defines source and target
+            //     .attr('fill', 'none')
+            //     .attr('stroke', 'black')
+            //     .attr('stroke-width', 1.5)
+            //     .attr('d', d3.linkHorizontal().x(d => d.y).y(d => d.x))
+
+            //     g.selectAll('circle')
+            //     .data(root.descendants())
+            //     .join('circle')
+            //     .attr('cx', d => d.y)
+            //     .attr('cy', d => d.x)
+            //     .attr('fill', fill_color)
+            //     .attr('stroke-wdith', 3)
+            //     .attr('r', 6)
+
+            //     g.selectAll('text')
+            //     .data(root.descendants())
+            //     .join('text')
+            //     .attr('x', d => (d.children ? -6 : 6) + d.y)
+            //     .attr('y', d => d.x + 5)
+            //     // 'dy attr' adjust text position
+            //     .text(d => d.data.name)
+            //     .attr('font-size', '1em')
+            //     .attr('text-anchor', d => d.children ? 'end' : 'start')
+            // }
+            
+            // d3.json('./static/data/games.json').then(data => {
+            //     root = d3.hierarchy(data)
+            //     root = d3.tree().size([innerHeight, innerWidth])(root)
+            //     // d3.tree().size([innerHeight, innerWidth]) is a function, tree direcltly map data into svg
+            //     console.log(root)
+            //     render(root)
+
+            // })
+
+            // //////// ice map
+            // const color = d3.scaleOrdinal(d3.schemeCategory10)
+            // const fill_color = d => {
+            //         while (d.depth > 1){
+            //             d = d.parent
+            //         }
+            //         return color(d.data.name)
+            //     }
+
+            // const render = function(data){
+
+            //     g.selectAll('datarect')
+            //     .data(data.descendants())
+            //     .join('rect')
+            //     .attr('class', 'datarect')
+            //     .attr('fill', fill_color)
+            //     .attr('x', d => d.y0)
+            //     .attr('y', d => d.x0)
+            //     .attr('height', d => d.x1 - d.x0)
+            //     .attr('width', d => d.y1 - d.y0)
+
+            //     g.selectAll('text')
+            //     .data(data.descendants())
+            //     .join('text')
+            //     .attr('x', d => (d.y0 + d.y1)/2)
+            //     .attr('y', d => (d.x0 + d.x1)/2 + 6)
+            //     .attr('text-anchor', 'middle')
+            //     .text(d => d.data.name)
+            // }
+
+            // d3.json('./static/data/games.json').then(data => {
+            //     root = d3.hierarchy(data)
+            //     root = d3.partition().size([height, width])(
+            //         root.sum(d => d.popularity)
+            //             .sort((a,b) => b.popularity - a.popularity)
+            //     )
+            //     render(root)
+            // }
+            // )
+            
+            // ///// sunburt map
+            // const svg = d3.select('#mainsvg')
+            // const width = +svg.attr('width')
+            // const height = +svg.attr('height')
+            // svg.attr('viewBox', [0, 0, width, height])
+            // const g = svg.append('g')
+            //     .attr('transform', `translate(${width/2}, ${height/2})`)
+            // let root;
+
+            // const color = d3.scaleOrdinal(d3.schemeCategory10)
+            // const fill_color = d => {
+            //         while (d.depth > 1){
+            //             d = d.parent
+            //         }
+            //         return color(d.data.name)
+            //     }
+
+            // const arc = d3.arc()
+            //     .startAngle(d => d.x0)
+            //     .endAngle(d => d.x1)
+            //     .innerRadius(d => d.y0)
+            //     .outerRadius(d => d.y1)
+            //     // .padAngle()
+
+            // const render = function(data){
+            //     g.selectAll('datapath')
+            //     .data(data.descendants().filter(d => d.depth !== 0))
+            //     .join('path')
+            //     .attr('class', 'datapath')
+            //     .attr('d', arc)
+            //     .attr('fill', fill_color)
+
+            //     g.selectAll('datatext')
+            //     .data(data.descendants().filter(d => d.depth !== 0))
+            //     .join('text')
+            //     .attr('text-anchor', 'middle')
+            //     .attr('class', 'datatext')
+            //     .attr('transform', d => {
+            //         let x = (d.x0 + d.x1)/2 * 180 / Math.PI
+            //         let y = (d.y0 + d.y1)/2
+            //         return `rotate(${x-90}) translate(${y}, ${0}) rotate(${x < 180 ? 0 : 180})`
+            //     })
+            //     .text(d => d.data.name)
+            //     // dy...
+
+            // }
+
+            // d3.json('./static/data/games.json').then(data => {
+            //     root = d3.hierarchy(data)
+            //     root = d3.partition().size([2 * Math.PI, height/ 1.6])(
+            //         root.sum(d => d.popularity)
+            //             .sort((a,b) => b.popularity - a.popularity)
+            //     )
+            //     render(root)
+            // }
+            // )
+
+            ///// node links
+            const svg = d3.select('#mainsvg')
+            const width = +svg.attr('width')
+            const height = +svg.attr('height')
+            let nodes
+            let simulation
+            let circles, lines
+            let links
+
+            function dragStarted(d){
+                d3.select(this)
+                .raise()
+                .attr('stroke', 'black')
+                simulation.stop()
+            }
+
+            function dragged(d){
+                d3.select(this)
+                .attr('fill', 'red')
+                .attr('stroke', 'red')
+                .attr('r', 8)
+                .attr('cx', d.x = d3.event.x)
+                .attr('cy', d.y = d3.event.y)
+                ticked()
+            }
+
+            function dragEnded(d){
+                d3.select(this)
+                .attr('fill', 'red')
+                .attr('stroke', 'red')
+                .attr('r', 5)
+                .attr('stroke', null)
+                simulation.restart()
+            }
+
+            const drag = d3.drag()
+                .on('start', dragStarted)
+                .on('drag', dragged)
+                .on('end', dragEnded)
+
+            const render_init = function(){
+                lines = svg.selectAll('line')
+                    .data(links)
+                    .join('line')
+                    .attr('stroke', 'black')
+                    .attr('opacity', '0.8')
+                    .attr('stroke-width', '0.5')
+
+                circles = svg.selectAll('circle')
+                .data(nodes)
+                .join('circle')
+                .attr('r', 5)
+                .attr('fill', 'red')
+                .call(drag)
+            }
+
+            const ticked = function(){
+                lines
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y)
+
+                circles
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y)
+            }
+
+            d3.json('./static/data/socfb-Caltech36.json').then(data => {
+                links = data.links
+                nodes = []
+                for (let i = 0; i < data['#nodes']; i++){
+                    nodes.push({'index': i})
+                }
+                console.log(nodes)
+                render_init()
+
+                simulation = d3.forceSimulation(nodes)
+                .force('manybody', d3.forceManyBody().strength(-30))
+                .force('center', d3.forceCenter(width/2, height/2))
+                .force('link', d3.forceLink(links).strength(0.1).distance(100))
+                .on('tick', ticked)
+                .alphaTarget(.5)
+            })
+            
+        </script>
+    </body>
+</html>
