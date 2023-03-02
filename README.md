@@ -11,4 +11,4 @@ Demo2. networks
 Demo3. barcharts
 
 ![Screenshot 2023-03-01 191403](https://user-images.githubusercontent.com/30349101/222321787-d8d7ecdc-130f-410f-a742-b6032ccbf847.png)
-sources of dataset: https://www.kaggle.com/datasets/gregorut/videogamesales (sales in millions)
+sources of dataset: https://www.kaggle.com/datasets/gregorut/videogamesales ($ sales in millions)
