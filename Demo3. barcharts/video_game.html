@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Video Games</title>
+        <script src = '/static/js/d3.v5.min.js'></script>
+    </head>
+
+    <body>
+        <!-- ideas: shuffle the datasets of barchart, and sort by descending and adding text, then change colors randomly
+         -->
+        <h1>From the year 1980 to 2020, the amount of video game sales across different platforms on a global scale  </h1>
+        <svg width ='1600' height ='800' id = '#mainsvg' class ='svgs'></svg>
+        <script>
+            const svg = d3.select('svg')
+            const width = +svg.attr('width')
+            const height = +svg.attr('height')
+            const margin = {top: 60, right: 30, bottom: 60, left: 150}
+            const innerWidth = width - margin.right - margin.left
+            const innerHeight = height - margin.top - margin.bottom
+            const mainGroup = svg.append('g')
+                .attr('transform', `translate(${margin.left}, ${margin.top})`)
+            const xScale = d3.scaleLinear()
+            const yScale = d3.scaleBand()
+
+            d3.csv('/static/data/platform_globalsale.csv').then(data => {
+                data.sort(function(a,b){
+                    return b.globalsale - a.globalsale
+                })
+ - 
+                console.log(data.map(d => d.globalsale))
+
+                const fill_color = d3.scaleOrdinal()
+                .domain(data.map(d => d.platforms))
+                .range(d3.schemeSet1)
+
+                xScale.domain(d3.extent(data, d => d.globalsale))
+                    .range([0, innerWidth])
+                yScale.domain(data.map(d => d.platform))
+                    .range([0, innerHeight])
+                    .padding(.1)
+
+                mainGroup.selectAll('rect')
+                    .data(data)
+                    .join('rect')
+                    .attr('x', 0)
+                    .attr('y', d => yScale(d.platform))
+                    .attr('width', d => xScale(d.globalsale))
+                    .attr('height', yScale.bandwidth())
+                    .attr('fill', fill_color)
+                    
+                mainGroup.selectAll('text')
+                    .data(data)
+                    .join('text')
+                    .attr('x', d => xScale(d.globalsale)/2)
+                    .attr('y', d => yScale(d.platform) + 15)
+                    .text(d => d.globalsale)
+                    .style('fill', 'white')
+                    .attr('text-anchor', 'middle')
+                    .attr('font-size', '1em')
+                    .attr('font-family', 'Arial')
+
+                const xAxisMethod = d3.axisBottom(xScale)
+                const yAxisMethod = d3.axisLeft(yScale)
+                const xAxisGroup = mainGroup.append('g').call(xAxisMethod)
+                const yAxisGroup = mainGroup.append('g').call(yAxisMethod)
+                xAxisGroup.attr('transform', `translate(${0}, ${innerHeight})`)
+                xAxisGroup.append('text')
+                .attr('font-size', '10em')
+            })
+        </script>
+    </body>
+
+</html>
