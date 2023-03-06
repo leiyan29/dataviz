@@ -15,3 +15,6 @@ sources of dataset: https://www.kaggle.com/datasets/gregorut/videogamesales ($ s
 
 Demo4. tree map
 ![Screenshot 2023-03-01 193949](https://user-images.githubusercontent.com/30349101/222325274-29e9836c-4e0b-40d7-820a-6a6555efc384.png)
+
+Demo5. Choropleth
+![Screenshot 2023-03-05 215818](https://user-images.githubusercontent.com/30349101/223030492-05871bd4-a9dc-4dc8-8b2c-c1d3e28966fe.png)
